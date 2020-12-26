@@ -1,6 +1,21 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 import './App.css';
+import Home from './pages/home';
+import MacroEconomy from './pages/macro_economy';
+import MarketOverview from './pages/market_overview';
+import StockScreener from './pages/stock_screener';
+import WatchList from './pages/watch_list';
+import Portfolio from './pages/portfolio';
+import SignalOverview from './pages/signal_overview';
+import SystemManagement from './pages/system_management';
+
+import MyAppBar from './components/MyAppBar';
 
 function App() {
   const [date, setDate] = useState(null);
@@ -13,44 +28,38 @@ function App() {
     getDate();
   }, []);
   return (
-    <main>
-      <h1>Create React App + Go API</h1>
-      <h2>
-        Deployed with{' '}
-        <a
-          href="https://vercel.com/docs"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          Vercel
-        </a>
-        !
-      </h2>
-      <p>
-        <a
-          href="https://github.com/vercel/vercel/tree/master/examples/create-react-app"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          This project
-        </a>{' '}
-        was bootstrapped with{' '}
-        <a href="https://facebook.github.io/create-react-app/">
-          Create React App
-        </a>{' '}
-        and contains three directories, <code>/public</code> for static assets,{' '}
-        <code>/src</code> for components and content, and <code>/api</code>{' '}
-        which contains a serverless <a href="https://golang.org/">Go</a>{' '}
-        function. See{' '}
-        <a href="/api/date">
-          <code>api/date</code> for the Date API with Go
-        </a>
-        .
-      </p>
-      <br />
-      <h2>The date according to Go is:</h2>
-      <p>{date ? date : 'Loading date...'}</p>
-    </main>
+    <Router>
+      <MyAppBar>
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/macro_economy">
+            <MacroEconomy />
+          </Route>
+          <Route path="/market_overview">
+            <MarketOverview />
+          </Route>
+          <Route path="/stock_screener">
+            <StockScreener />
+          </Route>
+          <Route path="/watch_list">
+            <WatchList />
+          </Route>
+          <Route path="/portfolio">
+            <Portfolio />
+          </Route>
+          <Route path="/signal_overview">
+            <SignalOverview />
+          </Route>
+          <Route path="/system_management">
+            <SystemManagement />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </MyAppBar>
+    </Router>
   );
 }
 
